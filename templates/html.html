@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    	*{
+    		margin: 0;
+    	}/*清除所有默认的外边距*/
+    	.list{
+    		background:#fff;
+    		margin-top: 20px;
+    		margin-left: 100px;
+    		border-radius: 10px;/*圆角*/
+    		box-shadow: 0px 0px 8px #000;/*盒子阴影*/
+    		resize:none;
+            font-family: "微软雅黑";
+            font-size: 30px;
+            height: 220px;
+            width: 550px;
+    	}
+    	.list2{
+    		background:#fff;
+    		margin-top: 20px;
+    		margin-right:100px;
+    		border-radius: 10px;/*圆角*/
+    		box-shadow: 0px 0px 8px #000;/*盒子阴影*/
+    		resize:none;
+            font-family: "微软雅黑";
+            font-size: 30px;
+            height: 220px;
+            width: 550px;
+    	}
+    </style>
+    <script>
+         $(function () {
+             $("#button2").click(function () {
+
+                  $("#text2").val("")
+
+                  $("#text1").val("")
+             })
+             var first=null;
+             var second=null;
+             $("#select").change(function(){
+			     //用数组的方式取到value值
+			         pram = $('#select').val().split(",");
+                     first=pram[0]
+			         second=pram[1];
+			 });
+            $("#button1").click(function (){
+             var contents = $("#text1").val();
+             console.log(contents)
+             console.log(first+second)
+             var data = {
+                        data: JSON.stringify({
+                            "content": contents,
+                            "first": first,
+                            "second": second
+                        }),
+                    }
+             $.ajax({
+                     type:'POST',
+                     url:'http://127.0.0.1:5000/login',
+                     data:data,
+                     dataType:'text',
+                     async : false,
+                     success:function(data){
+                         $("#text2").empty()
+                         $("#text2").append(data)
+                     },
+                     error:function(){
+                         alert("错误！！！")
+                     }
+                });
+            });
+         });
+    </script>
+</head>
+<body>
+<div>
+
+</div>
+<hr style="height:3px;border:none;border-top:3px groove;
+" />
+
+<div style="width: 100%;height:415px">
+	<div>
+	<select class="form-control" style="width: 300px;margin-left: 100px;" id="select">
+        <optgroup>
+        <option>请选择</option>
+        <option value="AUTO,AUTO">自动检测语言</option>
+	  	<option value="zh-CHS,en">中--->英</option>
+	  	<option value="zh-CHS,ja">中--->日</option>
+	  	<option value="zh-CHS,ko">中--->韩</option>
+	  	<option value="zh-CHS,es">中--->西班牙</option>
+        <option value="zh-CHS,en">中--->葡萄牙</option>
+	  	<option value="zh-CHS,ru">中--->俄</option>
+        <option value="zh-CHS,de">中--->德</option>
+	  	<option value="zh-CHS,fr">中--->法</option>
+       	<option value="zh-CHS,vi">中--->越</option>
+        <option value="zh-CHS,id">中--->印尼</option>
+       	<option value="zh-CHS,ar">中--->阿拉伯</option>
+        </optgroup>
+        <optgroup>
+        <option value="en,zh-CHS">英--->中</option>
+	  	<option value="ja,zh-CHS">日--->中</option>
+	  	<option value="ko,zh-CHS">韩--->中</option>
+	  	<option value="es,zh-CHS">西班牙--->中</option>
+        <option value="en,zh-CHS">葡萄牙--->中</option>
+	  	<option value="ru,zh-CHS">俄--->中</option>
+        <option value="de,zh-CHS">德--->中</option>
+	  	<option value="fr,zh-CHS">法--->中</option>
+        <option value="vi,zh-CHS">越--->中</option>
+        <option value="id,zh-CHS">印尼--->中</option>
+       	<option value="ar,zh-CHS">阿拉伯--->中</option>
+       </optgroup>
+	 </select>
+	  <button type="submit" class="btn btn-primary" id ="button2" style="margin-top: -35px;margin-right: 720px;float: right;width: 70px">清空</button>
+      <button type="submit" class="btn btn-primary" id ="button1" style="margin-top: -35px;margin-right: 840px;float: right;width: 70px">登录</button>
+    </div>
+
+     <div style="float: left;">
+   	      <textarea rows="10" cols="75" class="list" id="text1" name="textarea1"
+          placeholder="请输入你要进行的内容"></textarea>
+     </div>
+
+     <div style="float: right;">
+	      <textarea rows="10" cols="75" class="list2" id="text2"></textarea>
+     </div>
+
+</div>
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <h4 align="center">&copy;往事随峰.2018&nbsp;&nbsp;联系电话：110&nbsp;&nbsp;QQ:1228589545</h4>
+</div>
+</body>
+</html>
