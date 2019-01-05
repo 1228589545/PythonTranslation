@@ -54,14 +54,14 @@
                             "content": contents,
                             "first": first,
                             "second": second
-                        }),
-                    }
+                        })
+                    };
              $.ajax({
                      type:'POST',
                      url:'http://127.0.0.1:5000/login',
                      data:data,
                      dataType:'text',
-                     async : false,
+                     async : true,
                      success:function(data){
                           $("#text2").empty();
                           $("#text2").append(data);
@@ -76,7 +76,38 @@
                    $("#text2").empty();//数据后台生成的，直接移除元素内容
 
              });
+              $("#text1").keyup(function () {
+
+
+                   var contents = $("#text1").val();
+             console.log(contents)
+             console.log(first+second)
+             var data = {
+                        data: JSON.stringify({
+                            "content": contents,
+                            "first": first,
+                            "second": second
+                        })
+                    };
+             $.ajax({
+                     type:'POST',
+                     url:'http://127.0.0.1:5000/login',
+                     data:data,
+                     dataType:'text',
+                     async : true,
+                     success:function(data){
+                          $("#text2").empty();
+                          $("#text2").append(data);
+                     },
+                     error:function(){
+                         console.log("错误！！！")
+                     }
+                })
+
+              });
+
          });
+
     </script>
 </head>
 <body>
